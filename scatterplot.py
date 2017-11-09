@@ -5,10 +5,11 @@ import pandas as pd
 
 # Fixing random state for reproducibility
 file = raw_input("Enter first file: ")
-df = pd.read_csv(file).fillna('0')
+df = pd.read_csv(file)
+
 
 file2 = raw_input("Enter second file: ")
-df2 = pd.read_csv(file2).fillna('0')
+df2 = pd.read_csv(file2)
 # print df
 # np.random.seed(19680801)
 
@@ -27,8 +28,29 @@ def merge(file, file2):
 	mergedDF = df_merged_sorted.to_csv(name, sep=',', na_rep='', index=False)
 
 # # print df['BVP']
+# for l in lst: 
+	# 	if type(l) is int:
+	# 		print "int" , l
+	# 	elif type(l) is str: 
+	# 		print "str" , l
+	# print lst 
+def normalize(lst):
+
+	# base = min(lst)
+	# ranges = max(lst) - base
+	#  map(lambda x: (x-base)/ranges, lst)
+
+	# return [(x-base)/ranges for x in lst]
+
+	base = min(lst)
+	ranges = max(lst) - base
+
+	return map(lambda x: (x-base)/ranges, lst)
+
 def scatter(file):
-	df = pd.read_csv(file).fillna('0')
+	df= pd.read_csv(file).fillna(np.nan)
+	# print df
+	# df = df_other.replace('', np.nan)
 	# if len(input_list) == 1:
 	# 	column = input_list[0]
 	# 	x = df[column]
@@ -38,8 +60,29 @@ def scatter(file):
 	# else: 
 	x_input = input_list[0]
 	y_input = input_list[1]
-	x = df[x_input]
-	y = df[y_input]
+
+	# for value in df["tag"]: 
+	# 	if value == "Tag 1":
+
+	# left person 
+	index_tag1 = df.index[df['tags_x'] == "Tag 5"]
+	index_tag2 = df.index[df['tags_x'] == "Tag 6"]
+	new_df = df.iloc[index_tag1[0]:index_tag2[0]]
+	# masked = pd.isnull(np.ma.array(new_df, mask=np.isnan(new_df)))
+	# print "new_df: " , new_df
+
+	# x = (new_df[x_input] - new_df[x_input].mean())/new_df[x_input].std()
+	# x = normalize(new_df[x_input])
+	# y = normalize(new_df[y_input])
+	x = new_df[x_input]
+	y = new_df[y_input]
+
+	# y = (new_df[y_input] - new_df[y_input].mean())/new_df[y_input].std()
+	# x = normalize(np.ma.masked_where(new_df[x_input] == np.isnan
+	# 	array(new_df[x_input], mask=np.isnan(new_df[x_input])))
+	# print "x: " , x 
+	# y = normalize(np.ma.array(new_df[y_input], mask=np.isnan(new_df[y_input])))
+	# print "y: " , y 
 
 	plt.scatter(x, y, c="g")
 	plt.title(imageName[:-4])

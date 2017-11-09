@@ -8,4 +8,5 @@ This file is focused on changing the format of your current CSVs within a direct
 This file allows you to merge multiple CSVs 
 
 ## Scatter
-This file allows for analysis of CSVs - still in the process - need to add in ways to clean the data inputted 
+This file allows for analysis of CSVs. 
+
